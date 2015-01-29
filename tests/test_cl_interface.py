@@ -615,7 +615,8 @@ def test_remove_config_from_etc_net_interfaces(mock_module):
                    '\n',
                    'auto swp1\n',
                    'iface swp1\n',
-                   '   speed 1000\n',
+                   '   link-duplex full\n',
+                   '   link-speed 1000\n',
                    '\n',
                    '## Ansible controlled interfaces found here\n',
                    'source /etc/network/ansible/*\n'])
