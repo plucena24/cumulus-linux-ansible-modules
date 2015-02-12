@@ -9,7 +9,7 @@ module: cumulus_facts
 author: Stanley Karunditu
 short_description: Produces Cumulus Linux specific facts
 description:
-    - Produces Cumulus Linux specific facts. Currently include 'productname' \
+    - Produces Cumulus Linux specific facts. Currently includes 'productname' \
 which refers to the "platform-detect" output.  This module has no options\
 For more details refer to the Cumulus Linux Configuration Guide @ \
 http://docs.cumulusnetworks.com
@@ -19,10 +19,19 @@ options:
             - blank
 '''
 EXAMPLES = '''
-## Get cumulus specific facts
+## Get cumulus specific facts. Currently only gets `platform-detect` output
   - name: get cumulus specific facts
-    cumulus_facts
+    cumulus_facts:
+
+## Run this command only on Penguin Arctica 3200XL. custom fact collected from
+## previous run of `cumulus_facts`
+  - name: setup ports.conf
+    cl_ports:
+        speed_4_by_10g: ['swp1']
+    when: productname == 'cel,smallstone_xp'
 '''
+
+
 def run_cl_cmd(module, cmd):
     (rc, out, err) = module.run_command(cmd, check_rc=False)
     # trim last line as it is always empty
