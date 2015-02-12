@@ -1,0 +1,44 @@
+#!/usr/bin/env python
+#
+# Copyright (C) 2015, Cumulus Networks www.cumulusnetworks.com
+#
+#
+DOCUMENTATION = '''
+---
+module: cumulus_facts
+author: Stanley Karunditu
+short_description: Produces Cumulus Linux specific facts
+description:
+    - Produces Cumulus Linux specific facts. Currently include 'productname'
+which refers to the "platform-detect" output.  This module has no options\
+For more details refer to the Cumulus Linux Configuration Guide @ \
+http://docs.cumulusnetworks.com
+'''
+EXAMPLES = '''
+  - name: get cumulus specific facts
+    cumulus_facts
+'''
+def run_cl_cmd(module, cmd):
+    (rc, out, err) = module.run_command(cmd, check_rc=False)
+    # trim last line as it is always empty
+    ret = out.splitlines()
+    return ret
+
+
+def main():
+    module = AnsibleModule()
+    results = dict(
+        msg='Collected Cumulus Linux specific facts',
+        ansible_facts=dict(
+            productname=run_cl_cmd(module, '/usr/bin/platform-detect')
+        )
+    )
+    module.exit_json(**results)
+
+
+# import module snippets
+from ansible.module_utils.basic import *
+# from ansible.module_utils.urls import *
+
+if __name__ == '__main__':
+    main()
