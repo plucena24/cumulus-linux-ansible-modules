@@ -31,7 +31,7 @@ def run_cl_cmd(module, cmd):
 
 
 def main():
-    module = AnsibleModule()
+    module = AnsibleModule(argument_spec=dict())
     results = dict(
         msg='Collected Cumulus Linux specific facts',
         ansible_facts=dict(
