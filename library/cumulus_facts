@@ -9,12 +9,17 @@ module: cumulus_facts
 author: Stanley Karunditu
 short_description: Produces Cumulus Linux specific facts
 description:
-    - Produces Cumulus Linux specific facts. Currently include 'productname'
+    - Produces Cumulus Linux specific facts. Currently include 'productname' \
 which refers to the "platform-detect" output.  This module has no options\
 For more details refer to the Cumulus Linux Configuration Guide @ \
 http://docs.cumulusnetworks.com
+options:
+    no_options_for_this_module:
+        description:
+            - blank
 '''
 EXAMPLES = '''
+## Get cumulus specific facts
   - name: get cumulus specific facts
     cumulus_facts
 '''
