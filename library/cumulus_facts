@@ -32,10 +32,11 @@ def run_cl_cmd(module, cmd):
 
 def main():
     module = AnsibleModule(argument_spec=dict())
+    platform_detect_exec = '/usr/bin/platform_detect'
     results = dict(
         msg='Collected Cumulus Linux specific facts',
         ansible_facts=dict(
-            productname=run_cl_cmd(module, '/usr/bin/platform-detect')
+            productname=run_cl_cmd(module, platform_detect_exec)[0]
         )
     )
     module.exit_json(**results)
